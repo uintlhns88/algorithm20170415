@@ -1,0 +1,102 @@
+// C
+
+# define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+
+int main()
+{
+	int num;
+	char string[200];
+	char string2[200];
+	int g, G[50];
+	int h, H[50];
+	
+	
+	int temp;
+
+	scanf("%d\n", &num);
+
+	gets(string);
+	
+	gets(string2);
+
+
+	g = convert_input(G, string); // 배열.. pointer
+	h = convert_input(H, string2);
+
+
+	for (int i = 0; i < g+1; ++i)
+	{
+		for (int j = i + 1; j < g+1; ++j)
+		{
+			if (G[i] > G[j])
+			{
+				temp = G[i];
+				G[i] = G[j];
+				G[j] = temp;
+			}
+		}
+	}
+
+	for (int i = 0; i < g + 1; ++i)
+	{
+		for (int j = i + 1; j < g + 1; ++j)
+		{
+			if (H[i] < H[j])
+			{
+				temp = H[i];
+				H[i] = H[j];
+				H[j] = temp;
+			}
+		}
+	}
+	int sumy = 0;
+	for (int i = 0;i<g+1; i++) {
+		sumy += G[i] * H[i];
+	}
+
+	printf("%d",sumy);
+
+	return 0;
+}
+
+int convert_input(int K[], char string[200])
+{
+	int j = 0, i = 0, temp = 0;
+	while (string[i] != '\0')
+	{
+		temp = 0;
+		while (string[i] != ' ' && string[i] != '\0')
+			temp = temp * 10 + (string[i++] - '0');
+		if (string[i] == ' ')
+			i++;
+		K[j++] = temp;
+	}
+	return j - 1;
+}
+
+
+char* getstr(char *s)
+{
+	char * ch = s;
+	int k;
+
+	while ((k = getchar()) != '\n') {
+
+		if (k == EOF) {
+			
+			if (ch == s || !feof(stdin))
+				return NULL;
+
+			break;
+		}
+		*ch++ = k;
+	}
+	*ch = '\0';
+	return s;
+}
